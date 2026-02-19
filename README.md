@@ -18,4 +18,4 @@ The goal is to apply photogrametry to those photos to create a 3d model of the p
 ## Results
 
 Initial prototype using photogrametry + object turntable
-![alt text](./Screenshot%202026-02-19%20172333.png)
+![alt text](docs/result.png)
