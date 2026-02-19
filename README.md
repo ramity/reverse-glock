@@ -12,8 +12,8 @@ The goal is to apply photogrametry to those photos to create a 3d model of the p
 
 ## Tools
 
+- [Firefox](https://firefox.com)
 - [Meshroom](https://alicevision.org/)
-- [Blender](https://www.blender.org/)
 
 ## Results
 
