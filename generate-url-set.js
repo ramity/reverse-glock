@@ -31,4 +31,9 @@ images.forEach((img) => {
 });
 
 // THEN EXTRACT THE SET USING:
-// JSON.stringify(Array.from(uniqueSrcSet), null, 4)
+// const sortedSrcSet = Array.from(uniqueSrcSet).sort((a, b) => {
+//     const aFileName = parseInt(a.split('/').pop().split('.')[0], 10);
+//     const bFileName = parseInt(b.split('/').pop().split('.')[0], 10);
+//     return aFileName - bFileName;
+// });
+// JSON.stringify(sortedSrcSet, null, 4)
