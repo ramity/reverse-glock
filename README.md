@@ -45,35 +45,35 @@ Let's just assume 400mm.
 
 The initial low effort prototype using meshroom's "photogrametry + object turntable" pipeline.
 
-![alt text](docs/meshroom_result.png)
+![meshroom result](docs/meshroom_result.png)
 
 ### Voxel
 
 Binary voxel carve approach. Captures the most detail but loses information from glares.
 
-![alt text](docs/carve_render_left_low_a.png)
+![carve render left low a](docs/carve_render_left_low_a.png)
 
 > Low detail A
 
-![alt text](docs/carve_render_left_low_b.png)
+![carve render left low b](docs/carve_render_left_low_b.png)
 
 > Low detail B
 
-![alt text](docs/carve_render_left_high.png)
+![carve render left high](docs/carve_render_left_high.png)
 
 > High detail
 
 Voting approach. Sacrifices detail for more complete shape.
 
-![alt text](docs/voting_render_front.png)
+![voting render front](docs/voting_render_front.png)
 
 > Voting front
 
-![alt text](docs/voting_render_right_a.png)
+![voting render right a](docs/voting_render_right_a.png)
 
 > Voting right A
 
-![alt text](docs/voting_render_right_b.png)
+![voting render right b](docs/voting_render_right_b.png)
 
 > Voting right B
 
@@ -92,32 +92,34 @@ I was really impressed with the results of the voxel carving approach. It was ab
 
 # Fails
 
-![alt text](docs/voxel_fail_a.png)
+![voxel fail a](docs/voxel_fail_a.png)
 
-![alt text](docs/voxel_fail_b.png)
+![voxel fail b](docs/voxel_fail_b.png)
 
-![alt text](docs/voxel_fail_c.png)
+![voxel fail c](docs/voxel_fail_c.png)
 
-![alt text](docs/voxel_fail_d.png)
+![voxel fail d](docs/voxel_fail_d.png)
 
-![alt text](docs/voxel_fail_e.png)
+![voxel fail e](docs/voxel_fail_e.png)
 
-![alt text](docs/mesh_fail_a.png)
+![mesh fail a](docs/mesh_fail_a.png)
 
-![alt text](docs/mesh_fail_b.png)
+![mesh fail b](docs/mesh_fail_b.png)
 
-![alt text](docs/mesh_fail_c.png)
+![mesh fail c](docs/mesh_fail_c.png)
 
 > Biblically accurate glock
 
-![alt text](docs/mesh_fail_d.png)
+![mesh fail d](docs/mesh_fail_d.png)
 
-![alt text](docs/mesh_fail_e.png)
+![mesh fail e](docs/mesh_fail_e.png)
 
 > Glonk
 
 # Unused photos
 
-![alt text](docs/depth_map_0000.png)
-![alt text](docs/depth_map.png)
-![alt text](docs/matches_example.png)
+![depth map 0000](docs/depth_map_0000.png)
+
+![depth map](docs/depth_map.png)
+
+![matches example](docs/matches_example.png)
