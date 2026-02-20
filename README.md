@@ -17,5 +17,5 @@ The goal is to apply photogrametry to those photos to create a 3d model of the p
 
 ## Results
 
-Initial prototype using photogrametry + object turntable
+Initial low effort prototype using meshroom's "photogrametry + object turntable" pipeline.
 ![alt text](docs/result.png)
