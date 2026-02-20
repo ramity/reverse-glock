@@ -102,6 +102,20 @@ I was really impressed with the results of the voxel carving approach. It was ab
 
 ![alt text](docs/voxel_fail_e.png)
 
+![alt text](docs/mesh_fail_a.png)
+
+![alt text](docs/mesh_fail_b.png)
+
+![alt text](docs/mesh_fail_c.png)
+
+> Biblically accurate glock
+
+![alt text](docs/mesh_fail_d.png)
+
+![alt text](docs/mesh_fail_e.png)
+
+> Glonk
+
 # Unused photos
 
 ![alt text](docs/depth_map_0000.png)
