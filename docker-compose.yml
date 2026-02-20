@@ -5,6 +5,7 @@ services:
       dockerfile: ./docker/backend/Dockerfile
     volumes:
       - ./src:/app
+      - ./photos:/photos
     container_name: reverse_glock_backend
     image: reverse_glock_backend
     deploy:
