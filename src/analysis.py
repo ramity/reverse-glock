@@ -13,7 +13,7 @@ PHOTO_ROWS = 4
 PHOTO_COLS = 24
 ROTATIONS = range(0, 360, 15)
 TILTS = range(0, 60, 15)
-PHOTO_DIRECTORY = "/photos"
+PHOTO_DIRECTORY = "/photos/source"
 
 # Initiate SIFT detector and BFMatcher.
 sift = cv2.SIFT_create()

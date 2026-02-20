@@ -14,8 +14,10 @@ RUN apt install -y pkg-config
 # Install python libraries
 RUN pip install numpy --break-system-packages
 RUN pip install pillow --break-system-packages
-# RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
-# RUN pip install tqdm
+RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130 --break-system-packages
+RUN pip install tqdm --break-system-packages
+RUN pip install scikit-image --break-system-packages
+RUN pip install numpy-stl --break-system-packages
 
 # OpenCV dependencies
 RUN apt install -y cmake g++ wget zip unzip
