@@ -63,7 +63,11 @@ The initial low effort prototype using meshroom's "photogrametry + object turnta
 
 ## Voxel Carving
 
-Binary voxel carve approach. Captures the most detail but loses information from glares.
+### Binary voxel carving
+
+Captures the most detail but loses information from glares.
+
+[STL](results/binary-reconstruction-400-res.stl)
 
 ![carve render left low a](docs/carve_render_left_low_a.png)
 
@@ -77,7 +81,11 @@ Binary voxel carve approach. Captures the most detail but loses information from
 
 > High detail
 
-Voting approach. Sacrifices detail for more complete shape.
+### Voting approach
+
+Sacrifices detail for more complete shape.
+
+[STL](results/voting-reconstruction-500-res.stl)
 
 ![voting render front](docs/voting_render_front.png)
 
