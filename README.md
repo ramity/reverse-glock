@@ -11,6 +11,8 @@
 - [Results](#results)
   - [Meshroom](#meshroom)
   - [Voxel Carving](#voxel-carving)
+    - [Binary voxel carving](#binary-voxel-carving)
+    - [Voting approach](#voting-approach)
 - [Conclusion](#conclusion)
 - [Future Work](#future-work)
 - [Fails](#fails)
