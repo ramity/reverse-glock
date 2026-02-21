@@ -29,12 +29,7 @@ def get_camera_matrix(azimuth_deg, tilt_deg, distance, K):
     t = -R @ camera_pos
     return K @ np.column_stack((R, t))
 
-def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale=200, vote_threshold_ratio=0.5):
-    """
-    vote_threshold_ratio:
-        Fraction of views a voxel must be visible in to be kept.
-        Example: 0.6 means voxel must be supported by 60% of views.
-    """
+def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale=200):
 
     total_views = len(azimuths) * len(tilts)
 
@@ -92,7 +87,7 @@ def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale
     print("Filtering voxels by vote threshold...")
 
     # 2️⃣ Threshold votes
-    vote_threshold = int(total_views * 0.95)
+    vote_threshold = int(total_views * 1)
     voxels = voxel_counts >= vote_threshold
 
     print("Extracting surface via Marching Cubes...")
