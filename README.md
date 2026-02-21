@@ -2,25 +2,39 @@
 
 ![alt text](docs/splash.png)
 
+# Table of Contents
+
+- [Overview](#overview)
+- [Steps](#steps)
+- [Tools](#tools)
+- [Analysis](#analysis)
+- [Results](#results)
+  - [Meshroom](#meshroom)
+  - [Voxel Carving](#voxel-carving)
+- [Conclusion](#conclusion)
+- [Future Work](#future-work)
+- [Fails](#fails)
+- [Unused photos](#unused-photos)
+
 # Overview
 
 Glock.com has a neat 3d viewer that provides 120 photos.
 
 Is it possible to use those photos to create a 3d model?
 
-## Steps
+# Steps
 
 1. Generate the URL set
 2. Download the photos
 3. Generate the 3D model
 
-## Tools
+# Tools
 
 - [Firefox](https://firefox.com)
 - [Meshroom](https://alicevision.org/)
 - [Docker](https://www.docker.com/)
 
-## Analysis
+# Analysis
 
 - First 24 photos are very close to the following 24 photos, so I just skip them.
 - Angles of 15 degrees
@@ -39,15 +53,15 @@ Let's just assume 400mm.
 | 60 | 096.png | 097.png | 098.png | 099.png | 100.png | 101.png | 102.png | 103.png | 104.png | 105.png | 106.png | 107.png | 108.png | 109.png | 110.png | 111.png | 112.png | 113.png | 114.png | 115.png | 116.png | 117.png | 118.png | 119.png |
 
 
-## Results
+# Results
 
-### Meshroom
+## Meshroom
 
 The initial low effort prototype using meshroom's "photogrametry + object turntable" pipeline.
 
 ![meshroom result](docs/meshroom_result.png)
 
-### Voxel
+## Voxel Carving
 
 Binary voxel carve approach. Captures the most detail but loses information from glares.
 
@@ -79,7 +93,7 @@ Voting approach. Sacrifices detail for more complete shape.
 
 # Conclusion
 
-It is possible to create a 3d model of the pistol using only the photos provided via glock.com.
+It was possible to create a 3d model using only the photos provided via glock.com.
 
 I was really impressed with the results of the voxel carving approach. It was able to capture a lot of detail from the pistol. Binary carving is a very powerful technique, but it is very sensitive to the quality of the input images.
 
