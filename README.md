@@ -4,7 +4,7 @@
 
 # Table of Contents
 
-- [Overview](#overview)
+- [Introduction](#introduction)
 - [Steps](#steps)
 - [Tools](#tools)
 - [Analysis](#analysis)
@@ -19,11 +19,9 @@
 - [Fails](#fails)
 - [Unused photos](#unused-photos)
 
-# Overview
+# Introduction
 
-Glock.com has a neat 3d viewer that provides 120 photos.
-
-Is it possible to use those photos to create a 3d model?
+Glock.com uses a constrained 3d viewer only providing a subset of angles and rotations. I had the thought, "Is it possible to use those photos to make a 3d model?" This paper explores adversarially applying voxel carving to the photos to create a 3d model without being provided knowledge of camera parameters. While there's room for improvement, the results are strong for a proof of concept.
 
 # Steps
 
@@ -41,12 +39,13 @@ Is it possible to use those photos to create a 3d model?
 
 - First 24 photos are very close to the following 24 photos, so I just skip them.
 - Angles of 15 degrees
-- 
 
+```
 Assuming focal length of 35mm and sensor size of 36mm x 24mm.
 Given slide size reference of 174mm, 463px.
 (174mm * 35mm * 1100px) / (463px * 36mm) = 401.9mm
-Let's just round down and assume a camera-object distance of 400mm.
+Rounding down and assuming a camera-object distance of 400mm.
+```
 
 | tilt/rotation | 0 | 15 | 30 | 45 | 60 | 75 | 90 | 105 | 120 | 135 | 150 | 165 | 180 | 195 | 210 | 225 | 240 | 255 | 270 | 285 | 300 | 315 | 330 | 345 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
