@@ -2,6 +2,8 @@
 
 ![alt text](docs/curated_render_right_a.png)
 
+> 3D model adversarially created using unlabeled 2d photos from glock.com.
+
 # Table of Contents
 
 - [Introduction](#introduction)
