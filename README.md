@@ -1,4 +1,4 @@
-# Digitally Reverse Engineering a G19 Gen 6
+# Digitally Reverse Engineering a Gen 6 G19
 
 ![alt text](docs/splash.png)
 
