@@ -51,15 +51,13 @@ def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=500, scale
             tilt = int(tilt)
             azim = int(azim)
 
+            # Manual override - do as I say not as I do
             if tilt == 0:
                 tilt = 6.5
-
             if tilt == 20:
                 tilt = 25
-            
             if tilt == 40:
                 tilt = 40
-
             if tilt == 60:
                 tilt = 60
 
