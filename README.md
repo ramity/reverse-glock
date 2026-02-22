@@ -23,7 +23,7 @@
 
 # Introduction
 
-Glock.com uses a constrained 3d viewer only providing a subset of angles and rotations. I had the thought, "Is it possible to use those photos to make a 3d model?" This paper explores adversarially applying voxel carving to the photos to create a 3d model without being provided knowledge of camera parameters. While there's room for improvement, the results are strong for a proof of concept.
+Glock.com simulates a 3d viewer by providing photos in a subset of angles and rotations. I had the thought, "Is it possible to use those photos to make a 3d model?" This paper explores applying voxel carving to create a 3d model in an adversarial setting without being provided knowledge of camera parameters. While there's room for improvement, the results are strong for a proof of concept.
 
 # Steps
 
