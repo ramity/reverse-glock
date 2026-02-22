@@ -13,6 +13,7 @@
   - [Voxel Carving](#voxel-carving)
     - [Binary voxel carving](#binary-voxel-carving)
     - [Voting approach](#voting-approach)
+    - [Curated masks](#curated-masks)
 - [Conclusion](#conclusion)
 - [Future Work](#future-work)
 - [Fails](#fails)
@@ -103,7 +104,7 @@ Sacrifices detail for more complete shape.
 
 ### Curated masks
 
-Try as I might, there's no replacement for good data. In this section, I manually output the masks and edited them to remove glares and other artifacts. The results were significantly better than the other methods. Well enough that it's clear there's an ever so slight distoration that isn't be accounted for in the camera matrix.
+Try as I might, there's no replacement for good data. In this section, I manually output the masks, edited them to remove glares and other artifacts, and performed binary voxel carving. The results were significantly better than the other methods. Well enough that it's clear there's an ever so slight distoration that isn't being accounted for in the camera matrix. I also discovered some of the tilt angles were off during this section, so the previous results could be improved.
 
 [STL](results/curated_reconstruction.stl)
 
