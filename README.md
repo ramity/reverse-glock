@@ -41,12 +41,12 @@ Is it possible to use those photos to create a 3d model?
 
 - First 24 photos are very close to the following 24 photos, so I just skip them.
 - Angles of 15 degrees
-- Tilts of 20 degrees
-- Slide size reference of 174mm, 463px
+- 
 
 Assuming focal length of 35mm and sensor size of 36mm x 24mm.
+Given slide size reference of 174mm, 463px.
 (174mm * 35mm * 1100px) / (463px * 36mm) = 401.9mm
-Let's just assume 400mm.
+Let's just round down and assume a camera-object distance of 400mm.
 
 | tilt/rotation | 0 | 15 | 30 | 45 | 60 | 75 | 90 | 105 | 120 | 135 | 150 | 165 | 180 | 195 | 210 | 225 | 240 | 255 | 270 | 285 | 300 | 315 | 330 | 345 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
