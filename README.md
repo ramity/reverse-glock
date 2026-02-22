@@ -1,6 +1,6 @@
 # Digitally Reverse Engineering a Gen 6 G19
 
-![alt text](docs/splash.png)
+![alt text](docs/curated_render_right_a.png)
 
 # Table of Contents
 
