@@ -4,6 +4,8 @@
 
 > 3D model adversarially created using unlabeled 2d photos from glock.com.
 
+https://www.printables.com/model/1610005-reverse-engineered-gen-6-g19
+
 # Table of Contents
 
 - [Introduction](#introduction)
