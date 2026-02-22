@@ -5,6 +5,7 @@ from stl import mesh
 from skimage import measure
 import glob
 import os
+import tqdm
 
 def get_camera_matrix(azimuth_deg, tilt_deg, distance, K):
     """Calculates Projection Matrix P = K [R | t]"""
@@ -29,7 +30,7 @@ def get_camera_matrix(azimuth_deg, tilt_deg, distance, K):
     t = -R @ camera_pos
     return K @ np.column_stack((R, t))
 
-def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale=200):
+def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=200, scale=200):
 
     total_views = len(azimuths) * len(tilts)
 
@@ -50,8 +51,8 @@ def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale
     print("Starting Vote Accumulation...")
     idx = 0
 
-    for tilt in tilts:
-        for azim in azimuths:
+    for tilt in tqdm.tqdm(tilts, desc="Tilts"):
+        for azim in tqdm.tqdm(azimuths, desc="Azimuths"):
 
             if idx >= len(image_paths):
                 break
@@ -63,6 +64,8 @@ def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale
 
             mask[mask == 255] = 0
             mask[mask != 0] = 255
+
+            cv2.imwrite(f"/photos/masks/{tilt:02d}_{azim:03d}.png", mask)
 
             P = get_camera_matrix(azim, tilt, distance, K)
             h, w = mask.shape
@@ -86,28 +89,17 @@ def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=400, scale
 
     print("Filtering voxels by vote threshold...")
 
-    # 2️⃣ Threshold votes
-    vote_threshold = int(total_views * 1)
-    voxels = voxel_counts >= vote_threshold
-
-    print("Extracting surface via Marching Cubes...")
-
-    # 3️⃣ Run Marching Cubes
-    verts, faces, normals, values = measure.marching_cubes(
-        voxels.astype(float), level=0.5
-    )
-
-    # Rescale vertices
-    verts = (verts / res) * scale - (scale / 2)
-
-    # 4️⃣ Create STL
-    obj = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
-    for i, f in enumerate(faces):
-        for j in range(3):
-            obj.vectors[i][j] = verts[f[j], :]
-
-    obj.save('reconstruction.stl')
-    print("Saved to reconstruction.stl")
+    for vote_threshold in tqdm.tqdm(range(total_views - 5, total_views + 5, 1), desc="Vote Threshold"):
+        voxels = voxel_counts >= vote_threshold
+        verts, faces, normals, values = measure.marching_cubes(
+            voxels.astype(float), level=0.5
+        )
+        verts = (verts / res) * scale - (scale / 2)
+        obj = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
+        for i, f in enumerate(faces):
+            for j in range(3):
+                obj.vectors[i][j] = verts[f[j], :]
+        obj.save(f"{vote_threshold}_reconstruction.stl")
 
 # --- Configuration ---
 img_w, img_h = 1100, 733
@@ -124,6 +116,8 @@ tilt_list = [0, 20, 40, 60]
 # Generate dummy paths (Replace with your actual file list)
 photo_dir = "/photos/source/"
 file_paths = glob.glob(os.path.join(photo_dir, "*.png"))
+
+# Skip the first 24 images.
 file_paths = file_paths[24:]
 
 carve_and_save_stl(file_paths, azim_list, tilt_list, K_mat, distance=400)

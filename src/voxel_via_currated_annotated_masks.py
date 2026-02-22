@@ -1,0 +1,117 @@
+import cv2
+import numpy as np
+import math
+from stl import mesh
+from skimage import measure
+import glob
+import os
+import tqdm
+
+def get_camera_matrix(azimuth_deg, tilt_deg, distance, K):
+    """Calculates Projection Matrix P = K [R | t]"""
+    # Convert to radians; azimuth is CCW (to the left)
+    theta = math.radians(azimuth_deg) 
+    phi = math.radians(tilt_deg)
+
+    # 1. Camera Position in Cartesian (Y+ is forward/0 deg)
+    cx = distance * math.cos(phi) * math.sin(theta)
+    cy = distance * math.cos(phi) * math.cos(theta)
+    cz = distance * math.sin(phi)
+    camera_pos = np.array([cx, cy, cz], dtype=float)
+
+    # 2. Look-At Rotation (Camera faces origin)
+    forward = -camera_pos / np.linalg.norm(camera_pos)
+    tmp_up = np.array([0, 0, 1.0]) # Z is up
+    right = np.cross(tmp_up, forward)
+    right /= np.linalg.norm(right)
+    up = np.cross(forward, right)
+
+    R = np.vstack([right, up, -forward]) 
+    t = -R @ camera_pos
+    return K @ np.column_stack((R, t))
+
+def carve_and_save_stl(image_paths, azimuths, tilts, K, distance, res=500, scale=185):
+
+    total_views = len(azimuths) * len(tilts)
+    voxel_counts = np.zeros((res, res, res), dtype=np.uint16)
+    grid_range = np.linspace(-scale/2, scale/2, res)
+    X, Y, Z = np.meshgrid(grid_range, grid_range, grid_range, indexing='ij')
+    world_pts = np.vstack([
+        X.ravel(),
+        Y.ravel(),
+        Z.ravel(),
+        np.ones(X.size)
+    ])
+
+    if os.path.exists("voxel_counts.npy"):
+        voxel_counts = np.load("voxel_counts.npy")
+    else:
+        for image_path in tqdm.tqdm(image_paths, desc="Masks"):
+            tilt, azim = image_path.split("/")[-1].split(".png")[0].split("_")
+            tilt = int(tilt)
+            azim = int(azim)
+
+            if tilt == 0:
+                tilt = 6.5
+
+            if tilt == 20:
+                tilt = 25
+            
+            if tilt == 40:
+                tilt = 40
+
+            if tilt == 60:
+                tilt = 60
+
+            mask = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+            P = get_camera_matrix(azim, tilt, distance, K)
+            h, w = mask.shape
+
+            # Project voxels to 2D
+            img_pts = P @ world_pts
+            u = (img_pts[0] / img_pts[2]).astype(int)
+            v = (img_pts[1] / img_pts[2]).astype(int)
+
+            valid_mask = (u >= 0) & (u < w) & (v >= 0) & (v < h)
+            current_occupancy = np.zeros(X.size, dtype=bool)
+            current_occupancy[valid_mask] = mask[v[valid_mask], u[valid_mask]]
+            voxel_counts += current_occupancy.reshape(res, res, res).astype(np.uint16)
+
+        np.save("voxel_counts.npy", voxel_counts)
+
+    vote_threshold = total_views
+    voxels = voxel_counts >= vote_threshold
+
+    # Matplotlib voxel plot of the voxel counts
+    # import matplotlib.pyplot as plt
+    # ax = plt.figure().add_subplot(111, projection='3d')
+    # ax.voxels(voxels)
+    # plt.savefig("voxel_counts.png")
+
+    verts, faces, normals, values = measure.marching_cubes(
+        voxels.astype(float), level=0
+    )
+    verts = (verts / res) * scale - (scale / 2)
+    obj = mesh.Mesh(np.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
+    for i, f in enumerate(faces):
+        for j in range(3):
+            obj.vectors[i][j] = verts[f[j], :]
+    obj.save(f"{vote_threshold}_reconstruction.stl")
+
+# --- Configuration ---
+img_w, img_h = 1100, 733
+f = 35 # Focal length
+sensor_w = 36
+sensor_h = 24
+K_mat = np.array([[f * img_w / sensor_w, 0, img_w/2], [0, f * img_h / sensor_h, img_h/2], [0, 0, 1]], dtype=float)
+
+# Example setup: 360 degrees in 15 deg steps (24 photos) 
+# and 4 tilt levels (0, 15, 30, 45)
+azim_list = range(0, 360, 15)
+tilt_list = [0, 20, 40, 60]
+
+# Generate dummy paths (Replace with your actual file list)
+photo_dir = "/photos/curated_masks/"
+file_paths = glob.glob(os.path.join(photo_dir, "*.png"))
+carve_and_save_stl(file_paths, azim_list, tilt_list, K_mat, distance=400)
